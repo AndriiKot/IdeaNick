@@ -1,10 +1,11 @@
 
+1.
 pnpm create vite webapp --template react-ts
 cd webapp
 pnpm i  or (pnpm install)
 pnpm dev 
 
-
+2.
 // App.tsx
 ...
 export const App = () => { ... }
@@ -12,4 +13,27 @@ export const App = () => { ... }
 // main.tsx
 ...
 const { App } from "./App";
+
+3.
+pnpm i -D prettier
+
+
+// .prettierc.yml
+printWidth: 120
+trailingComma: "es5"
+tabWidth: 2
+semi: false
+singleQuote: true
+
+// package.json
+    "prettify": "prettier --log-level warn --cache --write '{src/**/*,*}.{js,jsx,ts,tsx,json,css,scss,md,yml}'"
+
+// .prettierignore
+node_modules
+dist
+dist-ssr
+
+
+# Ignore all HTML files:
+**/*.html
 
