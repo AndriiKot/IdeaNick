@@ -5,7 +5,7 @@ cd webapp
 pnpm i  or (pnpm install)
 pnpm dev 
 
-2.
+2. // webapp/
 // App.tsx
 ...
 export const App = () => { ... }
@@ -18,7 +18,7 @@ const { App } from "./App";
 pnpm i -D prettier
 
 
-// .prettierc.yml
+// .prettierc.yaml
 printWidth: 120
 trailingComma: "es5"
 tabWidth: 2
@@ -36,4 +36,39 @@ dist-ssr
 
 # Ignore all HTML files:
 **/*.html
+
+4.
+// backend/package.json
+
+pnpm i -D typescript
+pnpm i -D ts-node
+pnpm i -D ts-node-dev
+// backend/package.json
+...
+    "scripts": {
+        "dev": "ts-node-dev --rs ./src/index.ts"
+    },
+...
+
+5.
+// backend/
+pnpm i express
+pnpm i -D @types/express
+ 
+//backend/src/index.ts
+import express from 'express'
+
+const expressApp = express()
+
+expressApp.get('/ping', (req, res) => {
+  res.send('pong')
+})
+
+expressApp.listen(3000, () => {
+  console.info('Listening at http://localhost:3000')
+})
+
+
+
+
 
