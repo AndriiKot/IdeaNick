@@ -69,6 +69,76 @@ expressApp.listen(3000, () => {
 })
 
 
+6.
+// trpc.ts
+import { initTRPC } from '@trpc/server'
+
+const ideas = [
+  { nick: 'cool-idea-nick-1', name: 'Idea 1', description: 'Description of idea 1...' },
+  { nick: 'cool-idea-nick-2', name: 'Idea 2', description: 'Description of idea 2...' },
+  { nick: 'cool-idea-nick-3', name: 'Idea 3', description: 'Description of idea 3...' },
+  { nick: 'cool-idea-nick-4', name: 'Idea 4', description: 'Description of idea 4...' },
+  { nick: 'cool-idea-nick-5', name: 'Idea 5', description: 'Description of idea 5...' },
+]
+
+const trpc = initTRPC.create()
+
+export const trpcRouter = trpc.router({
+  getIdeas: trpc.procedure.query(() => {
+    return { ideas }
+  }),
+})
+
+export type TrpcRouter = typeof trpcRouter
+
+// index.ts
+import express from 'express'
+import * as trpcExpress from '@trpc/server/adapters/express'
+import { trpcRouter } from './trpc'
+
+const expressApp = express()  
+
+expressApp.get('/ping', (req, res) => {
+  res.send('pong')
+})
+
+expressApp.use(
+  '/trpc',
+  trpcExpress.createExpressMiddleware({
+    router: trpcRouter,
+  })
+)
+
+expressApp.listen(3000, () => {
+  console.info('Listening at http://localhost:3000')
+})
+
+7.
+cd webapp && pnpm i @trpc/client @trpc/react-query @tanstack/react-query
+cd backend && pnpm i cors
+
+Библиотека `cors` (Cross-Origin Resource Sharing) в Node.js 
+используется для решения проблемы CORS (Cross-Origin Resource Sharing). 
+CORS - это механизм, 
+который позволяет ограничивать доступ к ресурсам 
+на веб-странице из различных источников (доменов, портов, протоколов).
+
+Основные причины, по которым нужна библиотека `cors`:
+
+1. **Безопасность**: CORS помогает предотвратить 
+ атаки типа "Cross-Site Request Forgery" (CSRF), которые могут воз которые могут возникать, 
+ когда веб-приложение делает запросы к другим доменам.
+
+2. **Совместимость**: Браузеры, по соображениям безопасности, 
+   накладывают ограничения на кросс-доменные запросы. Библиотека `cors` 
+   помогает настроить эти ограничения и обеспечить совместимость с браузерами.
+
+3. **Гибкость**: `cors` позволяет гибко настраивать политику CORS, 
+    разрешая или запрещая доступ к ресурсам из различных источников, 
+    устанавливая заголовки ответа, которые контролируют, 
+    как браузеры должны взаимодействовать с ресурсами.
+
+
 
 
 
