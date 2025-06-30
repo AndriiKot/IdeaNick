@@ -7,6 +7,11 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+*.zip
+*.tar
+*.rar
+*.7z
+
 node_modules
 dist
 dist-ssr
